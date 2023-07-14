@@ -13,8 +13,8 @@ interface ILoginFormData {
 }
 
 const formSchema = yup.object().shape({
-  email: yup.string().email().required(),
-  password: yup.string().min(8).required()
+  email: yup.string().email('o formato do email é invalido').required(),
+  password: yup.string().min(8, 'o tamanho da senha é invalido').required()
 });
 
 export default function LoginPage() {
@@ -40,16 +40,28 @@ export default function LoginPage() {
           onSubmit={handleSubmit(handleLogin)}
           className="flex flex-col justify-center items-center gap-5"
         >
-          <div className="w-80 h-10 border border-solid p-2 flex flex-row justify-between">
+          <div
+            className={`w-80 h-10 border border-solid p-2 flex flex-row justify-between ${
+              errors.email
+                ? 'border border-solid border-red-600 text-red-600'
+                : ''
+            }`}
+          >
             <input
               type="text"
               placeholder="Email"
               className="w-full h-full bg-transparent font-normal focus:outline-none"
               {...register('email')}
             />
-            <AtSign size={23} color="#9CA3AF" />
+            <AtSign size={23} color={errors.email ? '#DC2626' : '#9CA3AF'} />
           </div>
-          <div className="w-80 h-10 border border-solid p-2 flex flex-row justify-between">
+          <div
+            className={`w-80 h-10 border border-solid p-2 flex flex-row justify-between ${
+              errors.password
+                ? 'border border-solid border-red-600 text-red-600'
+                : ''
+            }`}
+          >
             <input
               type={showPassword ? 'text' : 'password'}
               placeholder="*********"
@@ -60,16 +72,28 @@ export default function LoginPage() {
               <Eye
                 onClick={() => setShowPassword((e) => !e)}
                 size={23}
-                color="#9CA3AF"
+                color={errors.password ? '#DC2626' : '#9CA3AF'}
                 className="hover:cursor-pointer"
               />
             ) : (
               <EyeOff
                 onClick={() => setShowPassword((e) => !e)}
                 size={23}
-                color="#9CA3AF"
+                color={errors.password ? '#DC2626' : '#9CA3AF'}
                 className="hover:cursor-pointer"
               />
+            )}
+          </div>
+          <div>
+            {errors.email && (
+              <p className="text-red-600 font-normal text-base">
+                {errors.email.message}
+              </p>
+            )}
+            {errors.password && (
+              <p className="text-red-600 font-normal text-base">
+                {errors.password.message}
+              </p>
             )}
           </div>
           <button className="py-2 w-28 border border-[#263A60] border-solid">
