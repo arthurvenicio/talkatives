@@ -5,7 +5,7 @@ export default function Modules() {
   return (
     <div className="p-4 w-full h-full flex flex-col gap-4">
       <div className="border-b border-solid py-2">
-        <p className="font-bold text-3xl">Conteúdos</p>
+        <p className="font-bold text-primary text-3xl">Conteúdos</p>
       </div>
       <div className="flex-1 flex flex-col gap-3">
         {arrayData.map((item, index) => (

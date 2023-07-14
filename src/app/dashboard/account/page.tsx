@@ -5,7 +5,7 @@ export default function Account() {
   return (
     <div className="p-4 w-full h-full flex flex-col gap-4">
       <div className="border-b border-solid py-2">
-        <p className="font-bold text-3xl">Minha conta</p>
+        <p className="font-bold text-primary text-3xl">Minha conta</p>
       </div>
       <div className="flex-1 flex flex-col gap-3">
         <div className="w-full h-44 px-16 py-4 border-b border-solid flex flex-row items-center justify-between">

@@ -10,7 +10,7 @@ export default function DashboardLayout({
       <div className="flex-1">
         <Menu />
       </div>
-      <div className="flex-[8] bg-white-secondary">{children}</div>
+      <div className="flex-[8] h-screen bg-white-secondary">{children}</div>
     </div>
   );
 }

@@ -34,7 +34,7 @@ export default function LoginPage() {
 
   return (
     <div className="bg-primary w-screen h-screen flex flex-col items-center justify-center">
-      <div className="w-[480px] h-[320px] bg-white-primary shadow-md rounded-lg flex flex-col gap-3 items-center justify-center">
+      <div className="w-[480px] h-[320px] bg-white-primary shadow-lg rounded-t-lg flex flex-col gap-3 items-center justify-center">
         <h1 className="font-bold text-3xl">Talkative</h1>
         <form
           onSubmit={handleSubmit(handleLogin)}
@@ -84,22 +84,34 @@ export default function LoginPage() {
               />
             )}
           </div>
-          <div>
+          <div className="flex flex-col items-center justify-center gap-1">
             {errors.email && (
-              <p className="text-red-600 font-normal text-base">
+              <p className="text-red-600 font-medium text-sm">
                 {errors.email.message}
               </p>
             )}
             {errors.password && (
-              <p className="text-red-600 font-normal text-base">
+              <p className="text-red-600 font-medium text-sm">
                 {errors.password.message}
               </p>
             )}
           </div>
-          <button className="py-2 w-28 border border-[#263A60] border-solid">
+          <button className="py-2 w-28 border border-[#263A60] border-solid rounded-sm hover:scale-105">
             login
           </button>
         </form>
+      </div>
+      <div className="w-[480px] h-6 flex flex-col items-center justify-center bg-white-secondary">
+        <p className="text-xs">
+          Uma empresa do grupo{' '}
+          <a
+            className="no-underline text-black font-bold"
+            href="https://justcode.dev"
+            target="_blank"
+          >
+            Justcode
+          </a>
+        </p>
       </div>
     </div>
   );

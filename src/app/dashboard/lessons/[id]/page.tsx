@@ -8,7 +8,7 @@ export default function Lessons() {
   return (
     <div className="p-4 w-full h-full flex flex-col gap-4">
       <div className="border-b border-solid py-2">
-        <p className="font-bold text-3xl">{data.title}</p>
+        <p className="font-bold text-primary text-3xl">{data.title}</p>
       </div>
       <div className="flex-1 flex flex-col gap-3">
         {arrayData.map((item, index) => (
@@ -21,13 +21,13 @@ export default function Lessons() {
         ))}
 
         <div className="flex flex-row gap-2 items-center justify-center">
-          <button className="bg-[#f4f4f4] shadow-md p-3 text-xs font-bold rounded-md hover:opacity-60">
+          <button className="bg-[#f4f4f4] shadow-md p-3 text-xs font-bold rounded-md hover:opacity-60 text-primary">
             1
           </button>
-          <button className="bg-[#f4f4f4] shadow-md p-3 text-xs font-bold rounded-md hover:opacity-60">
+          <button className="bg-[#f4f4f4] shadow-md p-3 text-xs font-bold rounded-md hover:opacity-60 text-primary">
             2
           </button>
-          <button className="bg-[#f4f4f4] shadow-md p-3 text-xs font-bold rounded-md hover:opacity-60">
+          <button className="bg-[#f4f4f4] shadow-md p-3 text-xs font-bold rounded-md hover:opacity-60 text-primary">
             3
           </button>
         </div>

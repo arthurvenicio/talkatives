@@ -15,7 +15,10 @@ export const ModuleItem = ({
   return (
     <div className="w-full h-10 bg-[#f4f4f4] shadow-md rounded-md flex flex-row items-center justify-start px-4 gap-2 hover:opacity-50">
       {isFromModule ? <GanttChart size={23} /> : <FileCheck size={23} />}
-      <Link href={`/dashboard/${isFromModule ? 'lessons' : 'lesson'}/${id}`}>
+      <Link
+        className="text-primary"
+        href={`/dashboard/${isFromModule ? 'lessons' : 'lesson'}/${id}`}
+      >
         {name}
       </Link>
     </div>

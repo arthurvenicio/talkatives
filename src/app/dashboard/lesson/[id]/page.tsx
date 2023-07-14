@@ -1,24 +1,24 @@
-import { ChatView } from '../components/ChatView'
+import { ChatView } from '../components/ChatView';
 
 interface LessonParams {
   params: {
-    id: string
-  }
+    id: string;
+  };
 }
 export default function Lesson({ params }: LessonParams) {
-  const { id } = params
+  const { id } = params;
 
   const data = {
     title: 'Lesson 01',
-    videoUrl: 'ijabY0ybh7c',
-    videoPlatform: 'youtube',
-  }
+    videoUrl: 'fcyySC1qxJM',
+    videoPlatform: 'youtube'
+  };
 
   return (
     <div className="w-full h-full  flex flex-row gap-10">
       <div className="flex-[2] p-14 flex flex-col gap-10">
         <div className="border-b border-solid w-96">
-          <p className="text-3xl font-bold">{data.title}</p>
+          <p className="text-3xl text-primary font-bold">{data.title}</p>
         </div>
         <div>
           {data.videoPlatform === 'youtube' && (
@@ -53,5 +53,5 @@ export default function Lesson({ params }: LessonParams) {
         <ChatView />
       </div>
     </div>
-  )
+  );
 }
