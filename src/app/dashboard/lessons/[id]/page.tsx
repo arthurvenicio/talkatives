@@ -14,11 +14,23 @@ export default function Lessons() {
         {arrayData.map((item, index) => (
           <ModuleItem
             key={index}
-            name="Passive voice"
+            name={`Lesson ${index + 1}`}
             id="clk0ntnza000008lcbxs2hjg2"
             isFromModule={false}
           />
         ))}
+
+        <div className="flex flex-row gap-2 items-center justify-center">
+          <button className="bg-[#f4f4f4] shadow-md p-3 text-xs font-bold rounded-md hover:opacity-60">
+            1
+          </button>
+          <button className="bg-[#f4f4f4] shadow-md p-3 text-xs font-bold rounded-md hover:opacity-60">
+            2
+          </button>
+          <button className="bg-[#f4f4f4] shadow-md p-3 text-xs font-bold rounded-md hover:opacity-60">
+            3
+          </button>
+        </div>
       </div>
     </div>
   );

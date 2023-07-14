@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export const Menu = () => {
   return (
-    <div className="w-full h-screen border border-solid bg-[#f4f4f4] flex flex-col items-start justify-start p-4 gap-4">
+    <div className="w-full h-screen border border-solid bg-white-primary flex flex-col items-start justify-start p-4 gap-4">
       <div>
         <p className="font-bold text-lg">TALKATIVES</p>
       </div>
@@ -13,7 +13,7 @@ export const Menu = () => {
           href="/dashboard/modules"
         >
           <GanttChart size={17} />
-          Modules
+          Modulos
         </Link>
         <Link
           className="flex flex-row items-center gap-1 hover:opacity-50"
@@ -29,7 +29,7 @@ export const Menu = () => {
           href="/dashboard/account"
         >
           <UserCircle size={17} />
-          My account
+          Minha conta
         </Link>
       </div>
     </div>
