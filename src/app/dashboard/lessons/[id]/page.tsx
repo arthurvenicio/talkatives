@@ -6,8 +6,8 @@ export default function Lessons() {
   };
   const arrayData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
   return (
-    <div className="p-4 w-full h-full flex flex-col gap-4">
-      <div className="border-b border-solid py-2">
+    <div className="w-full h-full flex flex-col gap-4">
+      <div className="border-b border-solid">
         <p className="font-bold text-primary text-3xl">{data.title}</p>
       </div>
       <div className="flex-1 flex flex-col gap-3">
