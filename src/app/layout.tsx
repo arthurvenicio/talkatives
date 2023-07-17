@@ -1,8 +1,9 @@
 import './globals.css';
-import type { Metadata } from 'next';
 import importLocalFont from 'next/font/local';
 import { Inter } from 'next/font/google';
 import { env } from 'process';
+import RenderPages from './pages';
+import { Metadata } from 'next';
 
 const localFont = importLocalFont({
   src: '../fonts/inter.ttf'
@@ -14,8 +15,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'Talkative',
-  description: 'A platform to teach students, and learn new languages.'
+  title: 'Talkative'
 };
 
 export default function RootLayout({
@@ -32,7 +32,7 @@ export default function RootLayout({
             : `${inter.className}`
         }
       >
-        {children}
+        <RenderPages> {children}</RenderPages>
       </body>
     </html>
   );

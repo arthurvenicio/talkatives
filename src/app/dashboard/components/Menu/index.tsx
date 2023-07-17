@@ -1,5 +1,7 @@
-import { GanttChart, Gem, UserCircle } from 'lucide-react';
+import { GanttChart, Gem, LogOut, UserCircle } from 'lucide-react';
+import { signOut } from 'next-auth/react';
 import Link from 'next/link';
+import { LogoutButton } from './components/LogoutButton';
 
 export const Menu = () => {
   return (
@@ -31,6 +33,9 @@ export const Menu = () => {
           <UserCircle size={17} />
           Minha conta
         </Link>
+      </div>
+      <div className="mt-auto">
+        <LogoutButton />
       </div>
     </div>
   );

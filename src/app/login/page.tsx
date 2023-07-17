@@ -1,11 +1,13 @@
 'use client';
 import { AtSign, Eye, EyeOff } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import * as yup from 'yup';
 import { useRouter } from 'next/navigation';
+import GoogleIcon from '@/assets/google';
+import { signIn, useSession } from 'next-auth/react';
 
 interface ILoginFormData {
   email: string;
@@ -20,6 +22,7 @@ const formSchema = yup.object().shape({
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const { push } = useRouter();
+  const { data: session } = useSession();
   const {
     register,
     handleSubmit,
@@ -31,6 +34,12 @@ export default function LoginPage() {
   function handleLogin(data: ILoginFormData) {
     push('/dashboard/modules');
   }
+
+  useEffect(() => {
+    if (session) {
+      push('/dashboard/modules');
+    }
+  }, [session, push]);
 
   return (
     <div className="bg-primary w-screen h-screen flex flex-col items-center justify-center">
@@ -100,6 +109,17 @@ export default function LoginPage() {
             login
           </button>
         </form>
+        <div>
+          <button
+            className="py-2 w-28 border border-[#263A60] flex flex-row justify-center items-center gap-2 border-solid rounded-sm hover:scale-105"
+            onClick={() => signIn('google')}
+          >
+            <div className="w-6 h-6">
+              <GoogleIcon />
+            </div>
+            Google
+          </button>
+        </div>
       </div>
       <div className="w-[480px] h-6 flex flex-col items-center justify-center bg-white-secondary">
         <p className="text-xs">
