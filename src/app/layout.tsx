@@ -1,26 +1,39 @@
-import './globals.css'
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import './globals.css';
+import importLocalFont from 'next/font/local';
+import { Inter } from 'next/font/google';
+import { env } from 'process';
+import RenderPages from './pages';
+import { Metadata } from 'next';
+
+const localFont = importLocalFont({
+  src: '../fonts/inter.ttf'
+});
 
 const inter = Inter({
   subsets: ['latin'],
-  weight: ['400', '700', '500'],
-  preload: true,
-})
+  preload: true
+});
 
 export const metadata: Metadata = {
-  title: 'Talkative',
-  description: 'A platform to teach students, and learn new languages.',
-}
+  title: 'Talkative'
+};
 
 export default function RootLayout({
-  children,
+  children
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body
+        className={
+          env.NODE_ENV === 'development'
+            ? `${localFont.className}`
+            : `${inter.className}`
+        }
+      >
+        <RenderPages> {children}</RenderPages>
+      </body>
     </html>
-  )
+  );
 }

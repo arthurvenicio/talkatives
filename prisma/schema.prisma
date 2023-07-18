@@ -1,0 +1,212 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Role {
+  id          String       @id @default(cuid())
+  name        String       @unique
+  description String?
+  RoleOnUser  RoleOnUser[]
+}
+
+model Permission {
+  id               String             @id @default(cuid())
+  name             String             @unique
+  description      String?
+  PermissionOnUser PermissionOnUser[]
+}
+
+model RoleOnUser {
+  role      Role     @relation(fields: [roleId], references: [id])
+  roleId    String
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([roleId, userId])
+}
+
+model PermissionOnUser {
+  permission   Permission @relation(fields: [permissionId], references: [id])
+  permissionId String
+  user         User       @relation(fields: [userId], references: [id])
+  userId       String
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  @@id([permissionId, userId])
+}
+
+model Teacher {
+  id          String   @id @default(cuid())
+  firstName   String   @db.VarChar(255)
+  lastName    String   @db.VarChar(255)
+  document    String   @db.VarChar(255)
+  phoneNumber String?  @db.VarChar(255)
+  photoUrl    String?  @db.VarChar(255)
+  birthdate   DateTime @db.Timestamp()
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  gender      Gender   @relation(fields: [genderId], references: [id])
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String   @unique
+  genderId    Int
+  Class       Class[]
+}
+
+model StudentOnClass {
+  Student   Student @relation(fields: [studentId], references: [id])
+  Class     Class   @relation(fields: [classId], references: [id])
+  classId   String
+  studentId String
+
+  @@id([studentId, classId])
+}
+
+model Student {
+  id             String           @id @default(cuid())
+  firstName      String           @db.VarChar(255)
+  lastName       String           @db.VarChar(255)
+  document       String           @db.VarChar(255)
+  phoneNumber    String?          @db.VarChar(255)
+  photoUrl       String?
+  birthdate      DateTime         @db.Timestamp()
+  createdAt      DateTime         @default(now())
+  gender         Gender           @relation(fields: [genderId], references: [id])
+  updatedAt      DateTime         @updatedAt
+  user           User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId         String           @unique
+  genderId       Int
+  StudentOnClass StudentOnClass[]
+}
+
+model Class {
+  id             String           @id @default(cuid())
+  name           String           @db.VarChar(255)
+  description    String?          @db.VarChar(255)
+  Teacher        Teacher          @relation(fields: [teacherId], references: [id])
+  teacherId      String
+  Module         Module[]
+  StudentOnClass StudentOnClass[]
+}
+
+model Module {
+  id        String   @id @default(cuid())
+  name      String   @db.VarChar(255)
+  class     Class    @relation(fields: [classId], references: [id])
+  lesson    Lesson[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  classId   String
+}
+
+model Lesson {
+  id          String     @id @default(cuid())
+  name        String     @db.VarChar(255)
+  description String?    @db.VarChar(255)
+  type        String     @db.VarChar(100)
+  lessonDate  DateTime   @db.Timestamp()
+  question    Question[]
+  video       Video?
+  comment     Comment[]
+  Module      Module?    @relation(fields: [moduleId], references: [id])
+  moduleId    String?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  comment   String   @db.VarChar(255)
+  lesson    Lesson   @relation(fields: [lessonId], references: [id])
+  lessonId  String   @unique
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Question {
+  id        String   @id @default(cuid())
+  question  String   @db.VarChar(255)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Lesson    Lesson   @relation(fields: [lessonId], references: [id])
+  lessonId  String
+}
+
+model Video {
+  id            String @id @default(cuid())
+  videoUrl      String @db.VarChar(2000)
+  videoPlatform String @db.VarChar(255)
+  lesson        Lesson @relation(fields: [lessonId], references: [id])
+  lessonId      String @unique
+}
+
+model Gender {
+  id          Int       @id @default(autoincrement())
+  name        String    @unique
+  description String?
+  student     Student[]
+  teacher     Teacher[]
+}
+
+model User {
+  id               String             @id @default(cuid())
+  name             String?
+  email            String?            @unique
+  emailVerified    DateTime?
+  image            String?
+  userType         String?
+  accounts         Account[]
+  sessions         Session[]
+  roleOnUser       RoleOnUser[]
+  permissionOnUser PermissionOnUser[]
+  student          Student?
+  teacher          Teacher?
+  comment          Comment[]
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
