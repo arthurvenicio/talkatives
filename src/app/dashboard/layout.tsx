@@ -1,3 +1,4 @@
+import { DashboardWrapper } from './components/DashboardWrapper';
 import { Menu } from './components/Menu';
 
 export default function DashboardLayout({
@@ -7,10 +8,7 @@ export default function DashboardLayout({
 }) {
   return (
     <div className="flex flex-row">
-      <div className="flex-1">
-        <Menu />
-      </div>
-      <div className="flex-[8] h-screen bg-white-secondary">{children}</div>
+      <DashboardWrapper>{children}</DashboardWrapper>
     </div>
   );
 }

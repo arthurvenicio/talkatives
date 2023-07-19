@@ -3,14 +3,14 @@ import { APP_ROUTES } from '@/app.routes';
 import { ILayoutDefault } from '@/interfaces/defaults';
 import { CheckUserAuthenticated } from '@/utils/auth';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 
 interface IPrivateRoutesProps extends ILayoutDefault {}
 
 export default function PrivateRoutes({ children }: IPrivateRoutesProps) {
   const { push } = useRouter();
 
-  const isUserAuthenticated = CheckUserAuthenticated();
+  const isUserAuthenticated = useMemo(() => CheckUserAuthenticated(), []);
 
   useEffect(() => {
     if (!isUserAuthenticated) {

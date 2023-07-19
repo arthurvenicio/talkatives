@@ -1,9 +1,9 @@
 'use client';
 import { APP_ROUTES } from '@/app.routes';
-import { useSession } from 'next-auth/react';
+import { useUserContext } from '@/contexts/user/userContext';
 
 const CheckUserAuthenticated = () => {
-  const { data: session } = useSession();
+  const { session } = useUserContext();
   return !!session;
 };
 

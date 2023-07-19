@@ -3,7 +3,7 @@ import { CoffeSvG } from '@/assets/coffe';
 export default function Ranking() {
   return (
     <div className="w-full h-full flex flex-col gap-4">
-      <div className="border-b border-solid">
+      <div className="border-b border-solid w-full py-4">
         <p className="font-bold text-primary text-3xl">Ranking</p>
       </div>
       <div className="flex-1 flex flex-col items-center justify-center gap-3 saturate-0">

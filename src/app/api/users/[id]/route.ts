@@ -19,8 +19,8 @@ export async function GET(
   });
 
   if (!user) {
-    return NextResponse.json(user);
+    return NextResponse.json(user, { status: 404 });
   }
 
-  return NextResponse.json(user);
+  return NextResponse.json(user, { status: 200 });
 }
