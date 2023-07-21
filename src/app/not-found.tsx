@@ -1,5 +1,3 @@
-import { useRouter } from 'next/router';
-
 export default function NotFoundPage() {
   return (
     <div className="w-screen h-screen flex flex-col items-center justify-center bg-primary">

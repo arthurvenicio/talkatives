@@ -13,6 +13,7 @@ export async function GET(
     },
     include: {
       StudentOnClass: true,
+      Module: true,
       Teacher: {
         include: {
           Class: false
