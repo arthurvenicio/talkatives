@@ -1,4 +1,4 @@
-import { ModuleItem } from '../components/ModulesItem';
+import { ModuleItem } from '../../components/ModulesItem';
 
 export default function Lessons() {
   const data = {

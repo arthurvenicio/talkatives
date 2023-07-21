@@ -2,7 +2,7 @@ import './globals.css';
 import importLocalFont from 'next/font/local';
 import { Inter } from 'next/font/google';
 import { env } from 'process';
-import RenderPages from './pages';
+import RenderPages from '../components/RenderPages/RenderPages';
 import { Metadata } from 'next';
 
 const localFont = importLocalFont({

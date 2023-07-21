@@ -8,6 +8,7 @@ import * as yup from 'yup';
 import { useRouter } from 'next/navigation';
 import GoogleIcon from '@/assets/google';
 import { signIn, useSession } from 'next-auth/react';
+import { useUserContext } from '@/contexts/user/userContext';
 
 interface ILoginFormData {
   email: string;
@@ -22,7 +23,7 @@ const formSchema = yup.object().shape({
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const { push } = useRouter();
-  const { data: session } = useSession();
+  const { session } = useUserContext();
   const {
     register,
     handleSubmit,

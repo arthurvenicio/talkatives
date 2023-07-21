@@ -16,9 +16,22 @@ export const authOptions: NextAuthOptions = {
     strategy: 'jwt',
     maxAge: 1 * 24 * 60 * 60 // 1 day
   },
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.sub = user.id;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.id = token.sub;
+      }
+      return session;
+    }
+  },
   events: {
     async signIn(params) {
-      console.log(params);
       const user = await prisma.user.findFirst({
         where: {
           id: params.user.id

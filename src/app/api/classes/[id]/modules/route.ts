@@ -19,3 +19,29 @@ export async function GET(
 
   return NextResponse.json(moduleFromDatabase);
 }
+
+export async function POST(
+  req: Request,
+  { params }: { params: { id: string } }
+) {
+  const { name, classId } = await req.json();
+  const { id } = params;
+
+  try {
+    const moduleData = await prisma.module.create({
+      data: {
+        name,
+        class: {
+          connect: {
+            id
+          }
+        }
+      }
+    });
+
+    return NextResponse.json(moduleData, { status: 201 });
+  } catch (error: any) {
+    console.log(error);
+    return NextResponse.json(error.message, { status: 403 });
+  }
+}
