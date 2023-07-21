@@ -1,16 +1,17 @@
 'use client';
 import { APP_ROUTES } from '@/app.routes';
+import { useUserContext } from '@/contexts/user';
 import { ILayoutDefault } from '@/interfaces/defaults';
-import { CheckUserAuthenticated } from '@/utils/auth';
 import { useRouter } from 'next/navigation';
-import { useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 
 interface IPrivateRoutesProps extends ILayoutDefault {}
 
 export default function PrivateRoutes({ children }: IPrivateRoutesProps) {
   const { push } = useRouter();
+  const { session } = useUserContext();
 
-  const isUserAuthenticated = useMemo(() => CheckUserAuthenticated(), []);
+  const isUserAuthenticated = !!session;
 
   useEffect(() => {
     if (!isUserAuthenticated) {

@@ -1,15 +1,16 @@
 'use client';
-import { useGetClassesByTeacherId } from '@/hooks/api';
+import { useGetClassesByTeacherId, useGetUserById } from '@/hooks/api';
 import { ClassItem } from './ClassItem';
 import FadeLoader from 'react-spinners/FadeLoader';
 
 interface IClassListProps {
-  teacherId: string;
+  userId: string;
 }
 
-export const ClassList = ({ teacherId }: IClassListProps) => {
+export const ClassList = ({ userId }: IClassListProps) => {
+  const { data: userData } = useGetUserById(userId);
   const { data, isLoading, isError } = useGetClassesByTeacherId(
-    'clk8dqybv00016740kdzow85m'
+    userData?.teacher.id!
   );
 
   if (isLoading || !data) {

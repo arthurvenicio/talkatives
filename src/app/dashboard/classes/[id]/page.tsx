@@ -2,6 +2,7 @@
 import { useGetClassById } from '@/hooks/api/useGetClassById';
 import FadeLoader from 'react-spinners/FadeLoader';
 import { ModuleItemTeacher } from '../../components/ModuleItemTeacher';
+import { ButtonCreate } from './components/ButtonCreate';
 
 export default function Classes({ params }: { params: { id: string } }) {
   const { id } = params;
@@ -22,9 +23,7 @@ export default function Classes({ params }: { params: { id: string } }) {
     <div className="w-full h-full flex flex-col gap-4">
       <div className="border-b border-solid w-full flex flex-row justify-between py-4">
         <p className="font-bold text-primary text-3xl">{name}</p>
-        <button className="bg-primary text-white-secondary border border-solid border-primary px-4 rounded-sm hover:opacity-90">
-          Criar
-        </button>
+        <ButtonCreate />
       </div>
       <div className="flex-1 flex flex-col gap-3">
         <div className="flex flex-col gap-2">

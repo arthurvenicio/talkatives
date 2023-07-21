@@ -1,4 +1,6 @@
 'use client';
+import 'react-toastify/dist/ReactToastify.min.css';
+import { ToastContainer } from 'react-toastify';
 import PrivateRoutes from '@/components/PrivateRoutes';
 import { ILayoutDefault } from '@/interfaces/defaults';
 import { checkIfIsPublicPage } from '@/utils/auth';
@@ -32,6 +34,7 @@ export default function RenderPages({ children }: IRenderPages) {
           <UserContextProvider>
             {isPublicPage && children}
             {!isPublicPage && <PrivateRoutes>{children}</PrivateRoutes>}
+            <ToastContainer />
           </UserContextProvider>
         </NextAuthProvider>
         <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />

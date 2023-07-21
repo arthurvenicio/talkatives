@@ -2,7 +2,7 @@ import { ILayoutDefault } from '@/interfaces/defaults';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Talkative | Conteúdos'
+  title: 'Talkative | Alunos'
 };
 
 export default function Layout({ children }: ILayoutDefault) {

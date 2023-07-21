@@ -1,4 +1,5 @@
 import { api } from '@/config/axios';
+import { QUERY_KEYS } from '@/config/queryKeys';
 import { useQuery } from '@tanstack/react-query';
 
 export interface IClass {
@@ -7,13 +8,13 @@ export interface IClass {
   description: string;
 }
 
-const QUERY_KEY = ['classes_teacher_id'];
-
 const fetchApi = async (id: string) => {
   const { data } = await api.get(`/teachers/${id}/classes`);
   return data;
 };
 
 export const useGetClassesByTeacherId = (id: string) => {
-  return useQuery<IClass[], Error>(QUERY_KEY, () => fetchApi(id));
+  return useQuery<IClass[], Error>(QUERY_KEYS.classes_teacher_id, () =>
+    fetchApi(id)
+  );
 };

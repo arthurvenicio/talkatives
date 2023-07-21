@@ -1,4 +1,5 @@
 import { api } from '@/config/axios';
+import { QUERY_KEYS } from '@/config/queryKeys';
 import { useQuery } from '@tanstack/react-query';
 
 interface IClass {
@@ -33,13 +34,11 @@ interface IModule {
   classId: string;
 }
 
-const QUERY_KEY = ['class_id'];
-
 const fetchApi = async (id: string) => {
   const { data } = await api.get(`/classes/${id}`);
   return data;
 };
 
 export const useGetClassById = (id: string) => {
-  return useQuery<IClass, Error>(QUERY_KEY, () => fetchApi(id));
+  return useQuery<IClass, Error>(QUERY_KEYS.class_id, () => fetchApi(id));
 };

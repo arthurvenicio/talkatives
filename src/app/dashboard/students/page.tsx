@@ -1,3 +1,5 @@
+import { StudentList } from './components/StudentList/StudentList';
+
 export default function Classes() {
   const id = 'clk8dqybv00016740kdzow85m';
   return (
@@ -9,7 +11,7 @@ export default function Classes() {
         </button>
       </div>
       <div className="flex-1 flex flex-col gap-3">
-        <p>a</p>
+        <StudentList userId={id} />
       </div>
     </div>
   );
