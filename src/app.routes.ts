@@ -20,6 +20,8 @@ const APP_ROUTES = {
     }
   },
   public: {
+    '/': '/',
+    'not-found': '/not-found',
     login: '/login',
     forgot_email: '/forgot-email',
     reset_password: '/reset-password',

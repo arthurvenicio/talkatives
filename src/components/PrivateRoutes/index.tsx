@@ -1,4 +1,3 @@
-'use client';
 import { APP_ROUTES } from '@/app.routes';
 import { useUserContext } from '@/contexts/user';
 import { ILayoutDefault } from '@/interfaces/defaults';
