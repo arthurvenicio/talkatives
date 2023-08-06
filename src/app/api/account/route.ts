@@ -82,17 +82,26 @@ export const POST = async (req: Request) => {
         };
 
   try {
-    const user = await prisma.user.create({
+    const account = await prisma.account.create({
       data: {
-        name: body.name,
-        email: body.email,
+        provider: 'credentials',
+        type: 'credentials',
+        user: {
+          create: {
+            name: body.name,
+            email: body.email,
 
-        password: passwordHash,
-        ...aggregateAccount
+            password: passwordHash,
+            ...aggregateAccount
+          }
+        }
+      },
+      include: {
+        user: true
       }
     });
 
-    return NextResponse.json(user, { status: 201 });
+    return NextResponse.json(account, { status: 201 });
   } catch (error) {
     console.log(error);
     return NextResponse.json(
