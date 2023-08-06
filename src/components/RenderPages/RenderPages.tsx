@@ -1,10 +1,7 @@
 'use client';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { ToastContainer } from 'react-toastify';
-import PrivateRoutes from '@/components/PrivateRoutes';
 import { ILayoutDefault } from '@/interfaces/defaults';
-import { checkIfIsPublicPage } from '@/utils/auth';
-import { usePathname } from 'next/navigation';
 import { NextAuthProvider } from '../../providers';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useState } from 'react';
@@ -25,15 +22,12 @@ export default function RenderPages({ children }: IRenderPages) {
         }
       })
   );
-  const path = usePathname();
-  const isPublicPage = checkIfIsPublicPage(path);
   return (
     <>
       <QueryClientProvider client={queryClient}>
         <NextAuthProvider>
           <UserContextProvider>
-            {isPublicPage && children}
-            {!isPublicPage && <PrivateRoutes>{children}</PrivateRoutes>}
+            {children}
             <ToastContainer />
           </UserContextProvider>
         </NextAuthProvider>

@@ -1,7 +1,6 @@
 import { DashboardWrapper } from './components/DashboardWrapper';
-import { Menu } from './components/Menu';
 
-export default function DashboardLayout({
+export default async function DashboardLayout({
   children
 }: {
   children: React.ReactNode;
