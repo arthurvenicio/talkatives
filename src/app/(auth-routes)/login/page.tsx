@@ -1,14 +1,15 @@
 'use client';
 import { AtSign, Eye, EyeOff } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import * as yup from 'yup';
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import GoogleIcon from '@/assets/google';
 import { signIn, useSession } from 'next-auth/react';
 import { useUserContext } from '@/contexts/user/userContext';
+import { toast } from 'react-toastify';
 
 interface ILoginFormData {
   email: string;
@@ -22,8 +23,7 @@ const formSchema = yup.object().shape({
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
-  const { push } = useRouter();
-  const { session } = useUserContext();
+  const { replace } = useRouter();
   const {
     register,
     handleSubmit,
@@ -32,15 +32,20 @@ export default function LoginPage() {
     resolver: yupResolver(formSchema)
   });
 
-  function handleLogin(data: ILoginFormData) {
-    push('/dashboard/modules');
-  }
+  async function handleLogin(data: ILoginFormData) {
+    const result = await signIn('credentials', {
+      ...data,
+      redirect: false
+    });
 
-  useEffect(() => {
-    if (session) {
-      push('/dashboard/modules');
+    if (result?.error) {
+      toast(result.error, {
+        type: 'error'
+      });
     }
-  }, [session, push]);
+
+    replace('/dashboard/modules');
+  }
 
   return (
     <div className="bg-primary w-screen h-screen flex flex-col items-center justify-center">
