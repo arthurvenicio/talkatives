@@ -17,7 +17,7 @@ export const GET = async (
       }
     });
 
-    if (setting) throw new Error('Setting not found');
+    if (!setting) throw new Error('Setting not found');
 
     return NextResponse.json(setting, { status: 200 });
   } catch (e: any) {
