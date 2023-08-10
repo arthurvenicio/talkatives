@@ -14,7 +14,12 @@ const fetchApi = async (id: string) => {
 };
 
 export const useGetClassesByTeacherId = (id: string) => {
-  return useQuery<IClass[], Error>(QUERY_KEYS.classes_teacher_id, () =>
-    fetchApi(id)
+  return useQuery<IClass[], Error>(
+    QUERY_KEYS.classes_teacher_id,
+    () => fetchApi(id),
+    {
+      enabled: !!id,
+      refetchOnWindowFocus: false
+    }
   );
 };

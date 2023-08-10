@@ -1,8 +1,11 @@
 'use client';
+import { useUserContext } from '@/contexts/user';
+import { useGetClassesByTeacherId } from '@/hooks/api';
 import { isValid } from '@/utils/document';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { UserPlus2 } from 'lucide-react';
 import { useForm } from 'react-hook-form';
+import ReactInputMask from 'react-input-mask';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
@@ -13,6 +16,9 @@ interface IFormData {
   birthDate: string;
   gender: string;
   email: string;
+  password: string;
+  class: string;
+  phone: string;
 }
 
 const schema = yup.object().shape({
@@ -24,7 +30,10 @@ const schema = yup.object().shape({
     .test((value) => isValid(value)),
   birthDate: yup.string().required('Campo obrigatório'),
   gender: yup.string().required('Campo obrigatório'),
-  email: yup.string().email().required('Campo obrigatório')
+  class: yup.string().required('Campo obrigatório'),
+  email: yup.string().email().required('Campo obrigatório'),
+  password: yup.string().email().required('Campo obrigatório'),
+  phone: yup.string().email().required('Campo obrigatório')
 });
 
 export default function CreateStudentPage() {
@@ -35,6 +44,11 @@ export default function CreateStudentPage() {
   } = useForm<IFormData>({
     resolver: yupResolver(schema)
   });
+  const { user } = useUserContext();
+
+  const { data: userClasses } = useGetClassesByTeacherId(user?.teacher.id!);
+
+  console.log(userClasses);
 
   const handleOnSubmit = (data: IFormData) => {
     toast('Aluno cadastrado com sucesso!', {
@@ -64,7 +78,7 @@ export default function CreateStudentPage() {
                 <input
                   id="firstName"
                   type="text"
-                  className="bg-transparent border border-solid border-primary rounded-sm p-3"
+                  className="bg-transparent border border-solid border-primary rounded-sm p-3 h-12"
                   {...register('firstName')}
                 />
               </div>
@@ -75,9 +89,25 @@ export default function CreateStudentPage() {
                 <input
                   id="lastname"
                   type="text"
-                  className="bg-transparent border border-solid border-primary rounded-sm p-3"
+                  className="bg-transparent border border-solid border-primary rounded-sm p-3 h-12"
                   {...register('lastName')}
                 />
+              </div>
+              <div>
+                <label htmlFor="gender" className="text-base text-primary">
+                  Genero
+                </label>
+                <select
+                  {...register('gender')}
+                  id="gender"
+                  className="bg-transparent w-32 h-12 border border-solid border-primary p-2 focus:outline-none text-primary"
+                >
+                  <option value="male" defaultChecked>
+                    Masculino
+                  </option>
+                  <option value="female">Feminino</option>
+                  <option value="female">Outros</option>
+                </select>
               </div>
             </div>
             <div className="flex flex-row gap-8 w-96">
@@ -88,8 +118,25 @@ export default function CreateStudentPage() {
                 <input
                   id="document"
                   type="text"
-                  className="bg-transparent border border-solid border-primary rounded-sm p-3"
+                  className="bg-transparent border border-solid border-primary rounded-sm p-3 h-12"
                   {...register('document')}
+                />
+              </div>
+              <div>
+                <label htmlFor="phone" className="text-base text-primary">
+                  Telefone
+                </label>
+                <ReactInputMask
+                  // mask options
+                  mask={'(99) 9 9999-9999'}
+                  alwaysShowMask={false}
+                  maskPlaceholder=""
+                  // input options
+                  type={'text'}
+                  placeholder="Ex: (11) 9 1234-5678"
+                  className="bg-transparent border border-solid border-primary rounded-sm p-3 h-12 focus:outline-none text-primary"
+                  // react hook form register
+                  {...register('phone')}
                 />
               </div>
               <div>
@@ -99,9 +146,29 @@ export default function CreateStudentPage() {
                 <input
                   id="birthDate"
                   type="date"
-                  className="bg-transparent border border-solid border-primary rounded-sm p-3 w-72"
+                  className="bg-transparent border border-solid border-primary rounded-sm p-3 w-72 h-12"
                   {...register('birthDate')}
                 />
+              </div>
+              <div>
+                <label htmlFor="class" className="text-base text-primary">
+                  Turma
+                </label>
+                <select
+                  {...register('class')}
+                  id="class"
+                  className="bg-transparent w-48 h-12 border border-solid border-primary p-2 focus:outline-none text-primary"
+                >
+                  {userClasses?.map((userClass) => (
+                    <option
+                      key={userClass.id}
+                      value={userClass.name}
+                      defaultChecked
+                    >
+                      {userClass.name}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
           </div>
@@ -110,7 +177,7 @@ export default function CreateStudentPage() {
             <h2 className="text-xl font-bold text-primary">
               Criar usuario no sistema
             </h2>
-            <div className="w-64">
+            <div className="w-64 flex flex-col gap-2">
               <div className="flex flex-col gap-1">
                 <label htmlFor="email" className="text-base text-primary">
                   Email
@@ -120,6 +187,17 @@ export default function CreateStudentPage() {
                   type="email"
                   className="bg-transparent border border-solid border-primary rounded-sm px-3 py-2"
                   {...register('email')}
+                />
+              </div>
+              <div className="flex flex-col gap-1">
+                <label htmlFor="passowrd" className="text-base text-primary">
+                  Password
+                </label>
+                <input
+                  id="password"
+                  type="password"
+                  className="bg-transparent border border-solid border-primary rounded-sm px-3 py-2"
+                  {...register('password')}
                 />
               </div>
             </div>
