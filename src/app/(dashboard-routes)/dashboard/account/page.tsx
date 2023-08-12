@@ -2,7 +2,7 @@ import { Save } from 'lucide-react';
 import { Timezones } from './components/timezones';
 import { Languages } from './components/Languages';
 
-export default function Account() {
+export default async function Account() {
   return (
     <div className="w-full h-full flex flex-col gap-4">
       <div className="border-b border-solid py-4">
