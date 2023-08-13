@@ -21,9 +21,24 @@ export const StudentList = () => {
         />
       </div>
       <div className="flex flex-col gap-2">
-        <StudentItem userId="1" name="Arthur" photoUrl="" />
-        <StudentItem userId="1" name="Arthur" photoUrl="" />
-        <StudentItem userId="1" name="Arthur" photoUrl="" />
+        <StudentItem
+          userId="1"
+          name="Arthur"
+          photoUrl=""
+          email="arthur@justcode.dev"
+        />
+        <StudentItem
+          userId="1"
+          name="Arthur"
+          photoUrl=""
+          email="arthur@justcode.dev"
+        />
+        <StudentItem
+          userId="1"
+          name="Arthur"
+          photoUrl=""
+          email="arthur@justcode.dev"
+        />
       </div>
     </div>
   );
