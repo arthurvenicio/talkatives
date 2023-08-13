@@ -13,8 +13,16 @@ export async function GET(
     },
     include: {
       permissionOnUser: true,
-      student: true,
-      teacher: true
+      student: {
+        include: {
+          gender: true
+        }
+      },
+      teacher: {
+        include: {
+          gender: true
+        }
+      }
     }
   });
 

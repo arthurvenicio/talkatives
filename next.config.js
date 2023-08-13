@@ -4,10 +4,14 @@ const nextConfig = {
     remotePatterns: [
       {
         hostname: 'i.imgur.com',
-        protocol: 'https',
+        protocol: 'https'
       },
-    ],
-  },
-}
+      {
+        hostname: 'lh3.googleusercontent.com',
+        protocol: 'https'
+      }
+    ]
+  }
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

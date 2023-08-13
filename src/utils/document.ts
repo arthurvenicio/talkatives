@@ -78,4 +78,13 @@ const generate = (formatted?: boolean): string => {
   return formatted ? format(numbers) : numbers;
 };
 
-export { verifierDigit, strip, format, isValid, generate };
+const formatToCpf = (document: string) => {
+  const a = document.slice(0, 3);
+  const b = document.slice(3, 6);
+  const c = document.slice(6, 9);
+  const d = document.slice(9, 11);
+
+  return `${a}.${b}.${c}-${d}`;
+};
+
+export { verifierDigit, strip, format, isValid, generate, formatToCpf };
