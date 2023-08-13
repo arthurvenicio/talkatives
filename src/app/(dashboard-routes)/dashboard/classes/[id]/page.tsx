@@ -3,6 +3,8 @@ import { useGetClassById } from '@/hooks/api/useGetClassById';
 import FadeLoader from 'react-spinners/FadeLoader';
 import { ModuleItemTeacher } from '../../components/ModuleItemTeacher';
 import { ButtonCreate } from './components/ButtonCreate';
+import { GraduationCap } from 'lucide-react';
+import { capitalizePhrase } from '@/utils';
 
 export default function Classes({ params }: { params: { id: string } }) {
   const { id } = params;
@@ -21,9 +23,12 @@ export default function Classes({ params }: { params: { id: string } }) {
 
   return (
     <div className="w-full h-full flex flex-col gap-4">
-      <div className="border-b border-solid w-full flex flex-row justify-between py-4">
-        <p className="font-bold text-primary text-3xl">{name}</p>
-        <ButtonCreate />
+      <div className="border-b border-solid w-full flex flex-row items-center justify-start gap-3 py-4">
+        <GraduationCap size={45} className="text-primary" />
+        <p className="font-bold text-primary text-3xl">
+          {capitalizePhrase(name)}
+        </p>
+        {/* <ButtonCreate /> */}
       </div>
       <div className="flex-1 flex flex-col gap-3">
         <div className="flex flex-col gap-2">

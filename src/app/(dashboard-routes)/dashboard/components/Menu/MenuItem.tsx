@@ -8,6 +8,7 @@ interface MenuItemProps {
   children?: React.ReactNode;
   isLast?: boolean;
   hasSubmenu?: boolean;
+  canExpand?: boolean;
 }
 
 export const MenuItem = ({
@@ -16,14 +17,17 @@ export const MenuItem = ({
   icon,
   children,
   currentPath,
+  canExpand = true,
   isLast = false,
   hasSubmenu = false
 }: MenuItemProps) => {
   const isCurrentPage = url === currentPath;
   return (
     <Link
-      className={`flex flex-row items-center gap-2 w-full h-12 px-4 text-white-primary font-semibold hover:h-14 hover:transition-all ${
-        isCurrentPage ? 'bg-primary-100' : ''
+      className={`flex flex-row items-center gap-2 w-full h-12 px-4 text-white-primary font-semibold ${
+        canExpand ? 'hover:h-14' : ''
+      } hover:transition-all ${
+        isCurrentPage && !isLast ? 'bg-primary-100' : ''
       }`}
       href={url}
     >

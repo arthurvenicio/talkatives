@@ -10,7 +10,7 @@ const DEFAULT_PHOTO_URL = 'https://i.imgur.com/VoKGrwB.png';
 
 export const StudentItem = ({ name, userId, photoUrl }: IStudentItemProps) => {
   return (
-    <div className="w-full h-16 bg-white items-center p-4 flex flex-row gap-2 shadow-sm">
+    <div className="w-full h-16 bg-white items-center p-4 flex flex-row gap-2 shadow-sm rounded-md">
       <Image
         src={photoUrl ? photoUrl : DEFAULT_PHOTO_URL}
         alt={`${name} photo's`}

@@ -10,7 +10,9 @@ import {
   Ruler,
   Pencil,
   GraduationCap,
-  Shapes
+  Shapes,
+  Users,
+  Settings
 } from 'lucide-react';
 import { LogoutButton } from './LogoutButton';
 import { useUserContext } from '@/contexts/user/userContext';
@@ -27,7 +29,7 @@ export const Menu = () => {
       <div className="w-full p-4 flex flex-col items-center justify-center">
         <p className="font-bold text-lg text-white-primary">TALKATIVES</p>
       </div>
-      <div className="flex flex-col justify-start w-full">
+      <div className="flex flex-col justify-start w-full h-full">
         <MenuItem
           name="Painel"
           url="/dashboard"
@@ -61,15 +63,23 @@ export const Menu = () => {
             name="Alunos"
             url="/dashboard/students"
             currentPath={path}
-            icon={<User size={17} />}
+            icon={<Users size={17} />}
           />
         )}
         <MenuItem
           name="Minha conta"
-          currentPath={path}
           url="/dashboard/account"
-          isLast
+          currentPath={path}
           icon={<UserCircle size={17} />}
+        />
+        <div className="border-b border-solid border-gray-600 w-full mt-auto mb-2"></div>
+        <MenuItem
+          name="Configurações"
+          currentPath={path}
+          url="/dashboard/settings"
+          canExpand={false}
+          isLast
+          icon={<Settings size={17} />}
         />
       </div>
       <div className="mt-auto p-4">

@@ -3,7 +3,7 @@ import { useUserContext } from '@/contexts/user';
 import { useGetClassesByTeacherId } from '@/hooks/api';
 import { isValid } from '@/utils/document';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { UserPlus2 } from 'lucide-react';
+import { UserPlus2, Users } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import ReactInputMask from 'react-input-mask';
 import { toast } from 'react-toastify';
@@ -47,9 +47,6 @@ export default function CreateStudentPage() {
   const { user } = useUserContext();
 
   const { data: userClasses } = useGetClassesByTeacherId(user?.teacher.id!);
-
-  console.log(userClasses);
-
   const handleOnSubmit = (data: IFormData) => {
     toast('Aluno cadastrado com sucesso!', {
       type: 'success'
@@ -60,7 +57,7 @@ export default function CreateStudentPage() {
     <div className="w-full h-full flex flex-col gap-4">
       <div className="border-b border-solid w-full flex flex-row justify-between py-4">
         <div className="flex flex-row gap-1 items-center">
-          <UserPlus2 className="text-primary" size={40} />
+          <Users className="text-primary" size={40} />
           <p className="font-bold text-primary text-3xl">Criar novo aluno</p>
         </div>
       </div>
@@ -78,7 +75,7 @@ export default function CreateStudentPage() {
                 <input
                   id="firstName"
                   type="text"
-                  className="bg-transparent border border-solid border-primary rounded-sm p-3 h-12"
+                  className="bg-transparent border border-solid border-primary p-3 h-12 rounded-md"
                   {...register('firstName')}
                 />
               </div>
@@ -89,7 +86,7 @@ export default function CreateStudentPage() {
                 <input
                   id="lastname"
                   type="text"
-                  className="bg-transparent border border-solid border-primary rounded-sm p-3 h-12"
+                  className="bg-transparent border border-solid border-primary p-3 h-12 rounded-md"
                   {...register('lastName')}
                 />
               </div>
@@ -100,7 +97,7 @@ export default function CreateStudentPage() {
                 <select
                   {...register('gender')}
                   id="gender"
-                  className="bg-transparent w-32 h-12 border border-solid border-primary p-2 focus:outline-none text-primary"
+                  className="bg-transparent w-32 h-12 rounded-md border border-solid border-primary p-2 focus:outline-none text-primary"
                 >
                   <option value="male" defaultChecked>
                     Masculino
@@ -115,10 +112,16 @@ export default function CreateStudentPage() {
                 <label htmlFor="document" className="text-base text-primary">
                   Cpf
                 </label>
-                <input
-                  id="document"
-                  type="text"
-                  className="bg-transparent border border-solid border-primary rounded-sm p-3 h-12"
+                <ReactInputMask
+                  // mask options
+                  mask={'999.999.999-99'}
+                  alwaysShowMask={false}
+                  maskPlaceholder=""
+                  // input options
+                  type={'text'}
+                  placeholder="119.123.456-78"
+                  className="bg-transparent border border-solid border-primary p-3 h-12 rounded-md focus:outline-none text-primary"
+                  // react hook form register
                   {...register('document')}
                 />
               </div>
@@ -133,8 +136,8 @@ export default function CreateStudentPage() {
                   maskPlaceholder=""
                   // input options
                   type={'text'}
-                  placeholder="Ex: (11) 9 1234-5678"
-                  className="bg-transparent border border-solid border-primary rounded-sm p-3 h-12 focus:outline-none text-primary"
+                  placeholder="(11) 9 1234-5678"
+                  className="bg-transparent border border-solid border-primary p-3 h-12 rounded-md focus:outline-none text-primary"
                   // react hook form register
                   {...register('phone')}
                 />
@@ -146,7 +149,7 @@ export default function CreateStudentPage() {
                 <input
                   id="birthDate"
                   type="date"
-                  className="bg-transparent border border-solid border-primary rounded-sm p-3 w-72 h-12"
+                  className="bg-transparent border border-solid border-primary p-3 w-72 h-12 rounded-md"
                   {...register('birthDate')}
                 />
               </div>
@@ -157,7 +160,7 @@ export default function CreateStudentPage() {
                 <select
                   {...register('class')}
                   id="class"
-                  className="bg-transparent w-48 h-12 border border-solid border-primary p-2 focus:outline-none text-primary"
+                  className="bg-transparent w-48 h-12 rounded-md border border-solid border-primary p-2 focus:outline-none text-primary"
                 >
                   {userClasses?.map((userClass) => (
                     <option
@@ -185,7 +188,7 @@ export default function CreateStudentPage() {
                 <input
                   id="email"
                   type="email"
-                  className="bg-transparent border border-solid border-primary rounded-sm px-3 py-2"
+                  className="bg-transparent border border-solid border-primary px-3 py-2 rounded-md"
                   {...register('email')}
                 />
               </div>
@@ -196,7 +199,7 @@ export default function CreateStudentPage() {
                 <input
                   id="password"
                   type="password"
-                  className="bg-transparent border border-solid border-primary rounded-sm px-3 py-2"
+                  className="bg-transparent border border-solid border-primary px-3 py-2 rounded-md"
                   {...register('password')}
                 />
               </div>
