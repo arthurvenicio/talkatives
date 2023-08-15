@@ -1,7 +1,7 @@
 interface IDeleteStudentModalProps {
   setShowDeleteModal: (showDeleteModal: boolean) => void;
 }
-const DeleteStudentModal = ({
+export const DeleteStudentModal = ({
   setShowDeleteModal
 }: IDeleteStudentModalProps) => {
   const onHandleDelete = () => {};
@@ -54,5 +54,3 @@ const DeleteStudentModal = ({
     </div>
   );
 };
-
-export default DeleteStudentModal;

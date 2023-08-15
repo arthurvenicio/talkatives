@@ -2,7 +2,7 @@
 import { Trash } from 'lucide-react';
 import Image from 'next/image';
 import { useState } from 'react';
-import DeleteStudentModal from '../DeleteStudentModal/DeleteStudentModal';
+import { DeleteStudentModal } from '../DeleteStudentModal';
 
 interface IStudentItemProps {
   userId: string;
