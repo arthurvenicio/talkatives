@@ -1,7 +1,7 @@
 'use client';
 import { useGetClassById } from '@/hooks/api/useGetClassById';
 import FadeLoader from 'react-spinners/FadeLoader';
-import { ModuleItemTeacher } from '../../components/ModuleItemTeacher';
+import { ModuleItemTeacher } from '../../../components/ModuleItemTeacher';
 import { ButtonCreate } from './components/ButtonCreate';
 import { GraduationCap } from 'lucide-react';
 import { capitalizePhrase } from '@/utils';
