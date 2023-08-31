@@ -1,13 +1,14 @@
 'use client';
 import {
   GanttChart,
-  Home,
   UserCircle,
   GraduationCap,
   Shapes,
   Users,
   Settings,
-  Calendar
+  Calendar,
+  DollarSign,
+  LayoutDashboard
 } from 'lucide-react';
 import { LogoutButton } from './LogoutButton';
 import { useUserContext } from '@/contexts/user/userContext';
@@ -29,7 +30,7 @@ export const Menu = () => {
           name="Painel"
           url="/dashboard"
           currentPath={path}
-          icon={<Home size={17} />}
+          icon={<LayoutDashboard size={17} />}
         />
         {!isTeacher && (
           <MenuItem
@@ -67,6 +68,14 @@ export const Menu = () => {
             url="/dashboard/students"
             currentPath={path}
             icon={<Users size={17} />}
+          />
+        )}
+        {isTeacher && (
+          <MenuItem
+            name="Assinatura"
+            url="/dashboard/subscription"
+            currentPath={path}
+            icon={<DollarSign size={17} />}
           />
         )}
         <MenuItem

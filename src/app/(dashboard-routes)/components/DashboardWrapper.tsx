@@ -2,6 +2,9 @@
 import { useUserContext } from '@/contexts/user/userContext';
 import { Menu } from './Menu';
 import { MoonLoader } from 'react-spinners';
+import { useState } from 'react';
+import { ExperimentalAlert, BillAlert } from './Alerts';
+import { ExperimentalBillAlert } from './Alerts/ExperimentalBillAlert/ExperimentalBillAlert';
 
 export const DashboardWrapper = ({
   children
@@ -9,6 +12,8 @@ export const DashboardWrapper = ({
   children: React.ReactNode;
 }) => {
   const { isLoading } = useUserContext();
+  const [isExperimental, setIsExperimental] = useState(false);
+  const [isDebtor, setIsDebtor] = useState(false);
   return (
     <>
       {isLoading && (
@@ -22,6 +27,9 @@ export const DashboardWrapper = ({
             <Menu />
           </div>
           <div className="flex-[8] h-screen overflow-y-scroll bg-white-secondary">
+            {isExperimental && !isDebtor && <ExperimentalAlert />}
+            {isDebtor && !isExperimental && <BillAlert />}
+            {isDebtor && isExperimental && <ExperimentalBillAlert />}
             {children}
           </div>
         </>
