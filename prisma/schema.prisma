@@ -74,20 +74,24 @@ model PermissionOnUser {
 }
 
 model Teacher {
-  id          String   @id @default(cuid())
-  firstName   String   @db.VarChar(255)
-  lastName    String   @db.VarChar(255)
-  document    String   @db.VarChar(255)
-  phoneNumber String?  @db.VarChar(255)
-  photoUrl    String?  @db.VarChar(255)
-  birthdate   DateTime @db.Timestamp()
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  gender      Gender   @relation(fields: [genderId], references: [id])
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId      String   @unique
+  id          String     @id @default(cuid())
+  firstName   String     @db.VarChar(255)
+  lastName    String     @db.VarChar(255)
+  document    String     @db.VarChar(255)
+  phoneNumber String?    @db.VarChar(255)
+  photoUrl    String?    @db.VarChar(255)
+  birthdate   DateTime   @db.Timestamp()
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  gender      Gender     @relation(fields: [genderId], references: [id])
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String     @unique
   genderId    Int
   Class       Class[]
+  signature   Signature? @relation(fields: [signatureId], references: [id])
+  signatureId String?
+  signAt      DateTime?  @db.Timestamp()
+  Payment     Payment[]
 }
 
 model StudentOnClass {
@@ -220,4 +224,35 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Signature {
+  id        String    @id @default(cuid())
+  name      String    @db.VarChar(255)
+  price     Float     @db.Real
+  teacher   Teacher[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Payment   Payment[]
+}
+
+model Payment {
+  id                String    @id @default(uuid())
+  paymentMethod     String    @db.VarChar(255)
+  gateway           String    @db.VarChar(255)
+  barcode           String?   @db.VarChar(100)
+  pdfUrl            String?   @db.VarChar(3000)
+  qrCodeUrl         String?   @db.VarChar(3000)
+  creditCardLinkUrl String?   @db.VarChar(3000)
+  totalMount        Float     @db.Real
+  discount          Float     @db.Real
+  status            String    @db.VarChar(100)
+  signature         Signature @relation(fields: [signatureId], references: [id])
+  signatureId       String
+  teacher           Teacher   @relation(fields: [teacherId], references: [id])
+  teacherId         String
+  paidAt            DateTime? @db.Timestamp()
+  expireAt          DateTime? @db.Timestamp()
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
 }
