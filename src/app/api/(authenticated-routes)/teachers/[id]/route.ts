@@ -8,7 +8,7 @@ export async function GET(
 ) {
   const { id } = params;
 
-  const teacher = await prisma.teacher.findFirst({
+  const teacher = await prisma.teacher.findUnique({
     where: {
       id: String(id)
     },

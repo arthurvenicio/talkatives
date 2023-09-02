@@ -22,7 +22,7 @@ const formSchema = yup.object().shape({
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
-  const { replace } = useRouter();
+  const { replace, push } = useRouter();
   const {
     register,
     handleSubmit,

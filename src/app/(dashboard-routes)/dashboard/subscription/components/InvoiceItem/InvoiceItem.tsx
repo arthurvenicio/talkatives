@@ -7,6 +7,7 @@ import { PaymentModal } from '../PaymentModal/PaymentModal';
 import { PixModal } from '../PixModal';
 import { CreditCardModal } from '../CreditCardModal';
 import { BilletModal } from '../BilletModal';
+import { getFormattedName } from '@/utils';
 
 interface IInvoiceItemProps {
   data: InvoiceData;
@@ -18,10 +19,11 @@ interface InvoiceData {
   paymentMethod: string;
   totalValue: number;
   status: string;
+  pdfLink?: string;
 }
 
 export const InvoiceItem = ({ data }: IInvoiceItemProps) => {
-  const { date, dueDate, paymentMethod, totalValue, status } = data;
+  const { date, dueDate, paymentMethod, totalValue, status, pdfLink } = data;
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [showPixModal, setShowPixModal] = useState(false);
   const [showCreditCardModal, setShowCreditCardModal] = useState(false);
@@ -50,15 +52,17 @@ export const InvoiceItem = ({ data }: IInvoiceItemProps) => {
       )}
       <div className="w-full h-16 bg-white rounded-md py-4 px-8 flex flex-row justify-around items-center">
         <div className="flex-1 flex flex-col items-center justify-center border-r-2">
-          <p>{date}</p>
+          <p>{getFormattedName(date)}</p>
         </div>
         <div className="flex-1 flex flex-col items-center border-r-2">
           <p className="font-semibold text-base">Vencimento</p>
-          <p className="text-sm">{dueDate}</p>
+          <p className="text-sm">
+            {String(new Date(dueDate).toLocaleDateString('pt-BR'))}
+          </p>
         </div>
         <div className="flex-1 flex flex-col items-center border-r-2">
           <p className="font-semibold text-base">Forma de pagamento</p>
-          {paymentMethod === 'PIX' && (
+          {paymentMethod === 'pix' && (
             <Image
               src={LogoPix}
               alt="Logo do pix"
@@ -67,8 +71,8 @@ export const InvoiceItem = ({ data }: IInvoiceItemProps) => {
               className="saturate-0"
             />
           )}
-          {paymentMethod === 'CREDIT_CARD' && <CreditCard size={20} />}
-          {paymentMethod === 'BILLING' && <Tally4 size={20} />}
+          {paymentMethod === 'credit_card' && <CreditCard size={20} />}
+          {paymentMethod === 'banking_billet' && <Tally4 size={20} />}
         </div>
         <div className="flex-1 flex flex-col items-center border-r-2">
           <p className="font-semibold text-base">Valor total</p>
@@ -81,11 +85,14 @@ export const InvoiceItem = ({ data }: IInvoiceItemProps) => {
               PAGO
             </p>
           )}
-          {status === 'PENDING' && (
+          {status === 'waiting' || status.toLowerCase() === 'ativa' ? (
             <p className="bg-yellow-400 text-center rounded-2xl text-xs px-2 w-24">
               PENDENTE
             </p>
+          ) : (
+            ''
           )}
+
           {status === 'CANCELED' && (
             <p className="bg-red-400 text-center rounded-2xl text-xs px-2 w-24">
               CANCELADO
@@ -96,7 +103,9 @@ export const InvoiceItem = ({ data }: IInvoiceItemProps) => {
         {status !== 'PENDING' && (
           <div className="flex-1 flex flex-col items-center justify-center">
             <p className="font-semibold text-base">PDF</p>
-            <FileText size={20} className="text-red-500" />
+            <a href={pdfLink} target="_blank">
+              <FileText size={20} className="text-red-500" />
+            </a>
           </div>
         )}
 

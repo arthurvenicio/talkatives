@@ -90,7 +90,7 @@ model Teacher {
   Class       Class[]
   signature   Signature? @relation(fields: [signatureId], references: [id])
   signatureId String?
-  signAt      DateTime?  @db.Timestamp()
+  signedAt    DateTime?  @db.Timestamp()
   Payment     Payment[]
 }
 

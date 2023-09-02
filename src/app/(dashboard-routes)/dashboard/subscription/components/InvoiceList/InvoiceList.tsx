@@ -1,11 +1,12 @@
 'use client';
-import { useState } from 'react';
 import { MoonLoader } from 'react-spinners';
 import { InvoiceItem } from '../InvoiceItem';
+import { useUserContext } from '@/contexts/user';
+import { useGetInvoicesByTeacherId } from '@/hooks/api';
 
 export const InvoiceList = () => {
-  const [hasInvoices, setHasInvoices] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
+  const { user } = useUserContext();
+  const { data, isLoading } = useGetInvoicesByTeacherId(user?.teacher.id!);
 
   if (isLoading) {
     return (
@@ -15,7 +16,7 @@ export const InvoiceList = () => {
     );
   }
 
-  if (!hasInvoices) {
+  if (!data?.invoices.length) {
     return (
       <div className="w-full h-32 flex items-center justify-center">
         <p className="text-sm font-semibold text-gray-500">
@@ -25,19 +26,23 @@ export const InvoiceList = () => {
     );
   }
 
-  const invoiceData = {
-    date: 'AGOSTO - 2023',
-    dueDate: '20/08/2023',
-    paymentMethod: 'BILLING',
-    totalValue: 39.5,
-    status: 'APPROVED'
-  };
+  const { invoices } = data;
 
   return (
     <div className="w-full h-32 flex flex-col gap-3 mt-4 items-center justify-center">
-      <InvoiceItem data={invoiceData} />
-      <InvoiceItem data={{ ...invoiceData, status: 'PENDING' }} />
-      <InvoiceItem data={{ ...invoiceData, status: 'CANCELED' }} />
+      {invoices.map((invoice) => (
+        <InvoiceItem
+          key={invoice.id}
+          data={{
+            date: invoice.createdAt,
+            dueDate: invoice.expireAt,
+            paymentMethod: invoice.paymentMethod,
+            status: invoice.status,
+            totalValue: invoice.totalMount,
+            pdfLink: invoice.pdfUrl
+          }}
+        />
+      ))}
     </div>
   );
 };
