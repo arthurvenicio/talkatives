@@ -7,7 +7,7 @@ export default async function PrivateLayout({ children }: ILayoutDefault) {
   const session = await getServerSession(authOptions);
 
   if (session) {
-    redirect('/dashboard/modules');
+    redirect('/dashboard');
   }
   return <>{children}</>;
 }

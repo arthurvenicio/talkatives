@@ -1,6 +1,5 @@
 import { api } from '@/config/axios';
-import { QueryClient, useQuery } from '@tanstack/react-query';
-import { useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
 export interface User {
   id: string;
@@ -29,8 +28,6 @@ interface Teacher {
 }
 
 const QUERY_KEY = ['user_id'];
-
-const queryClient = new QueryClient();
 
 const fetchApi = async (id: string) => {
   const { data } = await api.get(`/users/${id}`);

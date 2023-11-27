@@ -1,8 +1,6 @@
-'use client';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function Home() {
-  const { push } = useRouter();
   return (
     <main className="flex w-screen h-screen flex-col gap-4 items-center justify-center bg-primary">
       <p className="text-white font-bold text-8xl">Talkative</p>
@@ -11,14 +9,12 @@ export default function Home() {
       </p>
 
       <div>
-        <button
-          className="py-2 w-28 border bg-white-primary border-solid text-primary rounded-md font-bold"
-          onClick={() => {
-            push('/login');
-          }}
+        <Link
+          className="p-3 w-28 border bg-white-primary border-solid text-primary rounded-md font-bold"
+          href="/login"
         >
-          Fazer login
-        </button>
+          Fazer Login
+        </Link>
       </div>
     </main>
   );
